@@ -1,0 +1,48 @@
+```
+{% extends 'biblioteca/base.html' %}
+
+{% block titulo %}Detalle - {{ libro.titulo }}{% endblock %}
+
+{% block contenido %}
+    <h1>Detalle del Libro</h1>
+    
+    <div class="acciones">
+        <a href="{% url 'libro_list' %}" class="btn btn-secondary">← Volver al Catálogo</a>
+        <a href="{% url 'libro_update' libro.pk %}" class="btn btn-primary">Editar Detalles</a>
+        <a href="{% url 'libro_delete' libro.pk %}" class="btn btn-danger">Eliminar Libro</a>
+    </div>
+
+    <table class="ancho-fijo">
+        <tbody>
+            <tr>
+                <th>Título</th>
+                <td><strong>{{ libro.titulo }}</strong></td>
+            </tr>
+            <tr>
+                <th>Autor</th>
+                <td>
+                    <a href="{% url 'autor_detail' libro.autor.pk %}" class="link-accion">
+                        {{ libro.autor.nombre }} {{ libro.autor.apellido }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>ISBN</th>
+                <td><code>{{ libro.isbn }}</code></td>
+            </tr>
+            <tr>
+                <th>Fecha de Publicación</th>
+                <td>{{ libro.fecha_publicacion|date:"d \d\e F \d\e Y" }}</td>
+            </tr>
+            <tr>
+                <th>Número de Páginas</th>
+                <td>{{ libro.paginas|default:"No especificado" }}</td>
+            </tr>
+            <tr>
+                <th>Resumen / Descripción</th>
+                <td>{{ libro.resumen|linebreaks|default:"Sin descripción disponible." }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+```

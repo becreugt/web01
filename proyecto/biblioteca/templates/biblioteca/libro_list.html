@@ -1,0 +1,49 @@
+```
+{% extends 'biblioteca/base.html' %}
+
+{% block titulo %}Lista de Libros{% endblock %}
+
+{% block contenido %}
+    <h1>Catálogo de Libros</h1>
+    
+    <a href="{% url 'libro_create' %}" class="btn btn-primary">+ Añadir Nuevo Libro</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>ISBN</th>
+                <th>Páginas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros %}
+            <tr>
+                <td><strong>{{ libro.titulo }}</strong></td>
+                <td>
+                    {# Django nos permite acceder a las propiedades del autor relacionado usando el punto #}
+                    <a href="{% url 'autor_detail' libro.autor.pk %}" class="link-accion">
+                        {{ libro.autor.nombre }} {{ libro.autor.apellido }}
+                    </a>
+                </td>
+                <td><code>{{ libro.isbn }}</code></td>
+                <td>{{ libro.paginas|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'libro_detail' libro.pk %}" class="link-accion">Ver</a>
+                    <span class="separador">|</span>
+                    <a href="{% url 'libro_update' libro.pk %}" class="link-accion">Editar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: #7f8c8d; padding: 20px;">
+                    No hay libros registrados en el catálogo de la biblioteca.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+```

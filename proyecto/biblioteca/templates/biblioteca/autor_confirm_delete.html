@@ -1,0 +1,40 @@
+```
+{% extends 'biblioteca/base.html' %}
+
+{% block contenido %}
+    <h1>¿Estás seguro de que deseas eliminar este autor?</h1>
+
+    <div class="advertencia-box">
+        <p><strong>¡Atención!</strong> Esta acción es permanente y no se puede deshacer.</p>
+        {# Nota basada en tu models.py donde pusiste on_delete=models.CASCADE #}
+        <p>Debido a que las reglas de tu base de datos están configuradas en cascada (<code>CASCADE</code>), <strong>se borrarán automáticamente todos los libros asociados a este autor</strong>.</p>
+    </div>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Autor a Eliminar</th>
+                <td>{{ autor.nombre }} {{ autor.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Nacionalidad</th>
+                <td>{{ autor.nacionalidad|default:"No especificada" }}</td>
+            </tr>
+            <tr>
+                <th>Total de libros afectados</th>
+                <td><strong>{{ autor.libros.count }}</strong> libro(s)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="acciones">
+            {# Si cancela, lo regresamos a la ficha de detalle de ese autor #}
+            <a href="{% url 'autor_detail' autor.pk %}" class="btn btn-secondary">No, Cancelar</a>
+            <button type="submit" class="btn">Sí, Eliminar Definitivamente</button>
+        </div>
+    </form>
+{% endblock %}
+```
