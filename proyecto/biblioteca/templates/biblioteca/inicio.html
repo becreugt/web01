@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Biblioteca</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #2c3e50;
+        }
+
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 78%;
+            margin: 40px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 35px;
+            border-top: 5px solid #3498db;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 35px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 25px;
+        }
+
+        .card {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #3498db;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.hero-img {
+    width: 260px;
+    height: auto;
+    border-radius: 10px;
+}
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h2>📚 Control Biblioteca</h2>
+        <div>
+            <a href="/biblioteca/">Inicio</a>
+            <a href="/biblioteca/autores/">Autores</a>
+            <a href="/biblioteca/libros/">Libros</a>
+            <a href="/admin/">Usuarios</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+    <div class="hero-content">
+        <div>
+            <h1>¡Bienvenido al Sistema de Gestión de Biblioteca!</h1>
+            <p>Utiliza el menú superior o los accesos directos de abajo para administrar los registros de la plataforma.</p>
+        </div>
+
+        <img src="{% static 'biblioteca/img/logo.jpg' %}" alt="Biblioteca" class="hero-img">
+    </div>
+</div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Gestión de Autores</h3>
+                <p>Registra nuevos escritores, modifica sus datos personales y consulta el catálogo de autores.</p>
+                <a href="/biblioteca/autores/">Ir a Autores</a>
+            </div>
+
+            <div class="card">
+                <h3>Catálogo de Libros</h3>
+                <p>Administra los libros disponibles, controla códigos ISBN, fechas de publicación y resúmenes.</p>
+                <a href="/biblioteca/libros/">Ir a Libros</a>
+            </div>
+
+            <div class="card">
+                <h3>Control de Usuarios</h3>
+                <p>Accede al panel de administración para gestionar usuarios, permisos y contraseñas.</p>
+                <a href="/admin/">Ir a Usuarios</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

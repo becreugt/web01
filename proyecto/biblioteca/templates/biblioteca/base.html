@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Mi Biblioteca{% endblock %}</title>
+    <style>
+        /* --- ESTILOS GENERALES Y ESTRUCTURA --- */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6; 
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container { 
+            padding: 30px; 
+            flex: 1; /* Empuja el footer hacia abajo si hay poco contenido */
+        }
+        
+        /* --- ENCABEZADO (HEADER) --- */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            border-bottom: none;
+            padding-bottom: 0;
+            color: white;
+        }
+        header nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        header nav a:hover {
+            color: #3498db;
+        }
+
+        /* --- PIE DE PÁGINA (FOOTER) --- */
+        footer {
+            background-color: #34495e;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* --- ENCABEZADOS DE CONTENIDO --- */
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        
+        /* H1 específico para pantallas de eliminación crítica */
+        .titulo-eliminar { color: #c0392b; border-bottom: 2px solid #e74c3c; }
+
+        /* --- BOTONES Y ACCIONES --- */
+        .acciones { margin-top: 20px; margin-bottom: 30px; }
+        
+        .btn { 
+            display: inline-block; 
+            padding: 10px 15px; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            font-size: 14px; 
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+            background-color: #3498db;
+        }
+        .btn-primary { background-color: #3498db; } /* Azul - Crear / Ver */
+        .btn-primary:hover { background-color: #2980b9; }
+        
+        .btn-success { background-color: #2ecc71; } /* Verde - Guardar formulario */
+        .btn-success:hover { background-color: #27ae60; }
+        
+        .btn-secondary { background-color: #95a5a6; margin-right: 10px; } /* Gris - Cancelar / Volver */
+        .btn-secondary:hover { background-color: #7f8c8d; }
+        
+        .btn-danger { background-color: #e74c3c; } /* Rojo - Borrar */
+        .btn-danger:hover { background-color: #c0392b; }
+
+        /* --- ENLACES EN LISTADOS --- */
+        .link-accion { text-decoration: none; color: #3498db; font-weight: bold; }
+        .link-accion:hover { text-decoration: underline; }
+        .separador { color: #bdc3c7; margin: 0 5px; }
+
+        /* --- TABLAS UNIFICADAS --- */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; color: #2c3e50; font-weight: bold; }
+        tr:hover { background-color: #f9f9f9; }
+        
+        /* Anchos específicos conservados de tus estilos antiguos */
+        .ancho-fijo th { width: 25%; }
+        .libros-table th { width: auto; }
+
+        /* --- FORMULARIOS --- */
+        input[type="text"], input[type="date"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .errorlist { color: #e74c3c; list-style-type: none; padding: 0; margin: 5px 0 0 0; font-size: 13px; }
+
+        /* --- ALERTAS Y ADVERTENCIAS --- */
+        .advertencia-box { background-color: #fdf2f2; border-left: 5px solid #e74c3c; padding: 15px; margin-top: 20px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📚 Biblioteca Especial</h1>
+        <nav>
+            <a href="/biblioteca/" class="btn-inicio">Inicio</a>
+            <a href="{% url 'autor_list' %}">Autores</a>
+            <a href="{% url 'libro_list' %}">Libros</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% block contenido %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        &copy; 2026 Sistema de Gestión de Biblioteca - Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>
