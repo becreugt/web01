@@ -1,0 +1,52 @@
+```
+{% extends 'biblioteca/base.html' %}
+
+{% block titulo %}
+    {% if object %}Editar Libro - {{ object.titulo }}{% else %}Añadir Nuevo Libro{% endif %}
+{% endblock %}
+
+{% block contenido %}
+    {# Encabezado dinámico dependiendo de si se está creando o editando #}
+    <h1>{% if object %}Modificar Datos del Libro{% else %}Registrar Nuevo Libro{% endif %}</h1>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <table class="ancho-fijo">
+            <tbody>
+                {% for field in form %}
+                <tr>
+                    <th>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {% if field.field.required %}<span style="color: #e74c3c;">*</span>{% endif %}
+                    </th>
+                    <td>
+                        {{ field }}
+                        
+                        {# Control y muestra de errores de validación (ej. ISBN duplicado) #}
+                        {% if field.errors %}
+                            {{ field.errors }}
+                        {% endif %}
+                        
+                        {# Muestra el texto de ayuda si se definió en el modelo (como el resumen) #}
+                        {% if field.help_text %}
+                            <br><small style="color: #7f8c8d;">{{ field.help_text }}</small>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="acciones">
+            {# Si el usuario cancela, lo regresamos al listado general de libros #}
+            <a href="{% url 'libro_list' %}" class="btn btn-secondary">Cancelar</a>
+            
+            {# El botón cambia de color a verde (.btn-success) gracias a la base unificada #}
+            <button type="submit" class="btn btn-success">
+                {% if object %}Guardar Cambios{% else %}Crear Libro{% endif %}
+            </button>
+        </div>
+    </form>
+{% endblock %}
+```

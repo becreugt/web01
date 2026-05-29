@@ -1,0 +1,55 @@
+```
+{% extends 'biblioteca/base.html' %}
+
+{% block contenido %}
+    <h1>Ficha del Autor</h1>
+    
+    <div class="acciones">
+        <a href="{% url 'autor_list' %}" class="btn btn-secondary">← Volver a la Lista</a>
+        <a href="{% url 'autor_update' autor.pk %}" class="btn">Editar Datos</a>
+        <a href="{% url 'autor_delete' autor.pk %}" class="btn btn-danger">Eliminar Autor</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Nombre Completo</th>
+            <td>{{ autor.nombre }} {{ autor.apellido }}</td>
+        </tr>
+        <tr>
+            <th>Nacionalidad</th>
+            <td>{{ autor.nacionalidad|default:"No especificada" }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de Nacimiento</th>
+            <td>{{ autor.fecha_nacimiento|date:"d/m/Y"|default:"No registrada" }}</td>
+        </tr>
+    </table>
+
+    <h2>Libros Escritos por este Autor</h2>
+    <table class="libros-table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>ISBN</th>
+                <th>Fecha de Publicación</th>
+                <th>Páginas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# Aquí usamos el 'related_name="libros"' que definiste en tu models.py #}
+            {% for libro in autor.libros.all %}
+            <tr>
+                <td>{{ libro.titulo }}</td>
+                <td><code>{{ libro.isbn }}</code></td>
+                <td>{{ libro.fecha_publicacion|date:"d/m/Y" }}</td>
+                <td>{{ libro.paginas|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Este autor aún no tiene libros registrados en la biblioteca.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+```

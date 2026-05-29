@@ -1,0 +1,43 @@
+```
+{% extends 'biblioteca/base.html' %}
+
+{% block titulo %}Confirmar Eliminación - {{ libro.titulo }}{% endblock %}
+
+{% block contenido %}
+    <h1 class="titulo-eliminar">¿Estás seguro de que deseas eliminar este libro?</h1>
+
+    <div class="advertencia-box">
+        <p><strong>¡Atención!</strong> Está a punto de borrar definitivamente este libro del catálogo.</p>
+        <p>Esta acción es permanente y no se podrá recuperar la información del registro posterior a su confirmación.</p>
+    </div>
+
+    <table class="ancho-fijo">
+        <tbody>
+            <tr>
+                <th>Título del Libro</th>
+                <td><strong>{{ libro.titulo }}</strong></td>
+            </tr>
+            <tr>
+                <th>Autor</th>
+                <td>{{ libro.autor.nombre }} {{ libro.autor.apellido }}</td>
+            </tr>
+            <tr>
+                <th>ISBN</th>
+                <td><code>{{ libro.isbn }}</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="acciones">
+            {# Si el usuario se arrepiente, lo regresamos a la pantalla de detalle de ese libro específico #}
+            <a href="{% url 'libro_detail' libro.pk %}" class="btn btn-secondary">No, Cancelar</a>
+            
+            {# Botón rojo peligro unificado en los estilos globales #}
+            <button type="submit" class="btn btn-danger">Sí, Eliminar Definitivamente</button>
+        </div>
+    </form>
+{% endblock %}
+```

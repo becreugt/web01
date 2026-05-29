@@ -1,0 +1,45 @@
+```
+{% extends 'biblioteca/base.html' %}
+
+{% block contenido %}
+    {# Encabezado condicional #}
+    <h1>{% if object %}Modificar Datos del Autor{% else %}Registrar Nuevo Autor{% endif %}</h1>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <table>
+            <tbody>
+                {# Iteramos sobre los campos del formulario que Django genera automáticamente #}
+                {% for field in form %}
+                <tr>
+                    <th>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {% if field.field.required %}<span style="color: #e74c3c;">*</span>{% endif %}
+                    </th>
+                    <td>
+                        {{ field }}
+                        {# Mostrar errores específicos del campo si los hay #}
+                        {% if field.errors %}
+                            {{ field.errors }}
+                        {% endif %}
+                        {# Mostrar textos de ayuda si existen en el modelo #}
+                        {% if field.help_text %}
+                            <small style="color: #7f8c8d;">{{ field.help_text }}</small>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="acciones">
+            {# Botón de cancelar redirige a la lista de autores #}
+            <a href="{% url 'autor_list' %}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn">
+                {% if object %}Guardar Cambios{% else %}Crear Autor{% endif %}
+            </button>
+        </div>
+    </form>
+{% endblock %}
+```
